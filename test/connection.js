@@ -4,20 +4,21 @@
  * Testing requires
  */
 
-var stream = require('./util').testStream
-var should = require('should')
+const stream = require('./util').testStream
+const should = require('should')
 
 /**
  * Units under test
  */
-var Connection = require('../connection')
+const Connection = require('../connection')
 
-describe('Connection', function () {
+describe('Connection', () => {
   beforeEach(function () {
     this.stream = stream()
     this.conn = new Connection(this.stream)
     this.readFromStream = (stream, length, cb) => {
-      var buf, done
+      let buf
+      let done
       stream.on('data', data => {
         if (done) return
         buf = buf ? Buffer.concat([ buf, data ]) : data

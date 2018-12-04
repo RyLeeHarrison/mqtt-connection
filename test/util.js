@@ -1,17 +1,13 @@
 
-var through = require('through2')
-var setImmediate = global.setImmediate
+const through = require('through2')
+let setImmediate = global.setImmediate
 
-setImmediate = setImmediate || function (func) {
-  setTimeout(func, 0)
-}
+setImmediate = setImmediate || (func => setTimeout(func, 0))
 
-module.exports.testStream = function () {
-  return through(function (buf, enc, cb) {
-    var that = this
-    setImmediate(function () {
-      that.push(buf)
-      cb()
-    })
+module.exports.testStream = () => through(function (buf, enc, cb) {
+  const that = this
+  setImmediate(() => {
+    that.push(buf)
+    cb()
   })
-}
+})
